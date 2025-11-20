@@ -1,0 +1,9 @@
+-f https://download.pytorch.org/whl/torch_stable.html 
+torch==2.6.0
+
+transformers
+gradio[oauth]
+huggingface_hub
+python-dotenv
+pydub
+prometheus_client==0.16.*
