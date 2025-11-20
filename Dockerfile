@@ -7,14 +7,12 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     ffmpeg \
-    prometheus-node-exporter \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
 
 COPY app.py ./
-COPY .env* ./
 
 # Grant write permissions 
 # https://discuss.huggingface.co/t/permission-denied-for-writing-files-within-spaces/29799/2
@@ -26,9 +24,6 @@ WORKDIR $HOME/app
 COPY --chown=user . $HOME/app
 
 EXPOSE 7860
-EXPOSE 8000
-EXPOSE 9100
 ENV GRADIO_SERVER_NAME="0.0.0.0"
 
-# CMD ["python", "app.py"]
-CMD bash -c "prometheus-node-exporter --web.listen-address=':9100' & python app.py"
+CMD ["python", "app.py"]
